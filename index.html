@@ -4,168 +4,139 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Muhammad Tahir Hussain — AI Engineer</title>
-<meta name="description" content="Muhammad Tahir Hussain — AI engineer, research analyst, coder, problem solver. Projects sync live from GitHub.">
-<meta name="theme-color" content="#07090d">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2307090d'/%3E%3Cpath d='M9 11l-5 5 5 5M23 11l5 5-5 5M18 8l-4 16' fill='none' stroke='%233fe08a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta name="description" content="Muhammad Tahir Hussain — AI engineer, research analyst, coder, problem solver.">
+<meta name="theme-color" content="#eceae3">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Crect width='7' height='7' fill='%232436ff'/%3E%3Cpath fill='%23eceae3' d='M2 1h4v1H2zM5 2h1v3H5zM4 2h1v1H4zM3 3h1v1H3zM2 4h1v1H2zM1 5h1v1H1z'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/portrait.webp">
-<link rel="stylesheet" href="css/style.css?v=8">
+<link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body>
 
+<!-- one hand-drawn pixel arrow, reused everywhere -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="arr" viewBox="0 0 7 7" shape-rendering="crispEdges">
     <path d="M2 0h5v1H2zM6 1h1v4H6zM5 1h1v1H5zM4 2h1v1H4zM3 3h1v1H3zM2 4h1v1H2zM1 5h1v1H1zM0 6h1v1H0z"/>
   </symbol>
 </svg>
 
-<div class="boot" id="loader" aria-hidden="true"><pre id="bootLog"></pre></div>
+<div class="loader" id="loader" aria-hidden="true">
+  <i></i><i></i><i></i><i></i><i></i>
+  <span class="mono" id="loaderNum">00</span>
+</div>
 
 <div class="cursor" id="cursor" aria-hidden="true">
   <svg viewBox="0 0 30 30"><path d="M2 2 27 11.5 16.5 15.5 21 27 15.5 29 11 17.5 4.5 24Z"/></svg>
-  <span id="cursorTag"></span>
+  <span class="mono" id="cursorTag"></span>
 </div>
 
-<!-- editor chrome -->
-<header class="bar">
-  <span class="bar__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-  <nav class="bar__tabs" aria-label="Sections">
-    <a href="#top" data-sec="readme.md"><b>~</b>/readme.md</a>
-    <a href="#work" data-sec="work/">work/</a>
-    <a href="#toolkit" data-sec="stack.json">stack.json</a>
-    <a href="#contact" data-sec="contact.sh">contact.sh</a>
+<header class="nav mono">
+  <a href="#top" data-tag="top">MTH</a>
+  <nav>
+    <a href="#work">Work</a>
+    <a href="#toolkit">Toolkit</a>
+    <a href="#contact">Contact</a>
   </nav>
-  <button class="bar__k" id="openK" type="button" aria-label="Open command palette" data-tag="run"><kbd>Ctrl</kbd><kbd>K</kbd></button>
 </header>
-
-<footer class="status" aria-label="Status bar">
-  <span class="status__branch"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.25a1.75 1.75 0 1 1-1 1.58v6.34a1.75 1.75 0 1 1-1 0V4.83A1.75 1.75 0 0 1 5 3.25Zm6 0a1.75 1.75 0 0 1 .5 3.43c-.06 1.3-.5 2.2-1.3 2.8-.75.55-1.75.8-2.95.87A1.75 1.75 0 1 1 6.2 9.3c1.1-.05 1.85-.26 2.37-.64.45-.33.75-.84.82-1.7A1.75 1.75 0 0 1 11 3.25Z"/></svg>main</span>
-  <span class="status__ok">✓ 0 errors</span>
-  <span id="sRepos">— repos</span>
-  <span class="status__push" id="sPush">syncing github…</span>
-  <span class="status__sp"></span>
-  <span id="sSec">readme.md</span>
-  <span id="sLn">Ln 1</span>
-  <span id="sClock">--:--</span>
-</footer>
 
 <main id="top">
 
 <!-- ── hero ── -->
-<section class="hero" id="hero" data-sec="readme.md">
-  <div class="hero__grid" aria-hidden="true"></div>
-  <div class="hero__copy">
-    <p class="cm">// ai engineer · research analyst · coder · problem solver</p>
-    <h1 class="hero__name" aria-label="Muhammad Tahir Hussain">
-      <span data-vf>Muhammad</span><span data-vf>Tahir</span><span data-vf>Hussain</span>
-    </h1>
-    <div class="code" aria-hidden="true">
-      <div class="code__bar"><span>tahir.ts</span><i>TS</i></div>
-      <pre id="typed"></pre>
-    </div>
-    <div class="hero__cta">
-      <a class="btn btn--go" href="#work" data-tag="scroll">ls work/ <svg class="arr arr--down"><use href="#arr"/></svg></a>
-      <a class="btn" href="#contact">./contact.sh</a>
-    </div>
-  </div>
-  <figure class="hero__me" id="portrait">
-    <i class="hero__glow" aria-hidden="true"></i>
-    <canvas id="wire" aria-hidden="true"></canvas>
+<section class="hero" id="hero">
+  <h1 class="hero__name hero__name--back" aria-label="Muhammad Tahir Hussain">
+    <span data-vf>Muhammad</span><span data-vf>Tahir</span><span data-vf>Hussain</span>
+  </h1>
+  <div class="hero__ring" aria-hidden="true"></div>
+  <figure class="hero__portrait" id="portrait">
     <img id="portraitImg" src="assets/img/portrait.webp" width="1100" height="1430" alt="Muhammad Tahir Hussain">
     <canvas id="ascii" aria-hidden="true"></canvas>
-    <figcaption>subject.detect() → <b>human</b> · 0.99</figcaption>
   </figure>
+  <div class="hero__name hero__name--front" aria-hidden="true">
+    <span data-vf>Muhammad</span><span data-vf>Tahir</span><span data-vf>Hussain</span>
+  </div>
+  <ul class="hero__roles mono">
+    <li>AI Engineer</li><li>Research Analyst</li><li>Coder</li><li>Problem Solver</li>
+  </ul>
+  <a class="hero__down mono" href="#say" data-tag="scroll"><svg class="arr arr--down"><use href="#arr"/></svg></a>
 </section>
 
 <!-- ── statement, generated token by token ── -->
-<section class="say" id="say" data-sec="readme.md">
-  <p class="cm"><span class="pr">&gt;</span> model.generate(<span class="st">"who is tahir?"</span>)</p>
+<section class="say" id="say">
   <p class="say__line" id="sayLine">I build systems that learn, and prove that they do.</p>
-  <p class="cm" id="sayMeta">0 / 10 tokens</p>
 </section>
 
 <!-- ── roles ── -->
-<section class="roles" id="roles" data-sec="readme.md">
-  <div class="roles__row" data-dir="-1"><i>01</i><h2 data-vf>AI Engineer</h2><span>models, not demos</span></div>
-  <div class="roles__row" data-dir="1"><i>02</i><h2 data-vf>Research Analyst</h2><span>evidence first</span></div>
-  <div class="roles__row" data-dir="-1"><i>03</i><h2 data-vf>Coder</h2><span>C · C++ · Python</span></div>
-  <div class="roles__row" data-dir="1"><i>04</i><h2 data-vf>Problem Solver</h2><span>find the invariant</span></div>
+<section class="roles" id="roles">
+  <div class="roles__row" data-dir="-1"><i class="mono">01</i><h2 data-vf>AI Engineer</h2><span class="mono">models, not demos</span></div>
+  <div class="roles__row" data-dir="1"><i class="mono">02</i><h2 data-vf>Research Analyst</h2><span class="mono">evidence first</span></div>
+  <div class="roles__row" data-dir="-1"><i class="mono">03</i><h2 data-vf>Coder</h2><span class="mono">C · C++ · Python</span></div>
+  <div class="roles__row" data-dir="1"><i class="mono">04</i><h2 data-vf>Problem Solver</h2><span class="mono">find the invariant</span></div>
 </section>
 
-<!-- ── work: synced live from GitHub ── -->
-<section class="work" id="work" data-sec="work/">
-  <header class="work__head">
-    <p class="cm"><span class="pr">$</span> gh repo list <span class="st">MuhammadTahirHussain-Official</span> --sort pushed</p>
-    <h2 class="h2">Work<span class="acc">/</span></h2>
-    <p class="work__sync" id="sync"><i></i><span>syncing with GitHub…</span></p>
-  </header>
-  <div class="work__grid">
-    <div class="viewer" id="viewer">
-      <canvas id="cloud" aria-hidden="true"></canvas>
-      <div class="viewer__info">
-        <div class="flap" id="flap"></div>
-        <p class="viewer__desc" id="vDesc"></p>
-        <p class="viewer__meta" id="vMeta"></p>
-        <div class="viewer__links" id="vLinks"></div>
+<!-- ── work: a 3D point cloud that reshapes per project, named on a split-flap board ── -->
+<section class="work" id="work">
+  <div class="work__stage">
+    <canvas id="cloud" aria-hidden="true"></canvas>
+    <p class="work__label mono">Selected work</p>
+    <ol class="work__ticks mono" id="ticks" aria-hidden="true"><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li></ol>
+    <ul class="work__list" id="wheelList">
+      <li><a href="https://github.com/MuhammadTahirHussain-Official/PAI-Sales-DataAnalysis" target="_blank" rel="noopener" data-kind="Data pipeline" data-stack="Python · pandas · Streamlit" data-note="3,000,888 rows → 85 features" data-shape="bars">Store Sales</a></li>
+      <li><a href="https://github.com/MuhammadTahirHussain-Official/cropglobe-transfer" target="_blank" rel="noopener" data-kind="ML research" data-stack="PyTorch · Jupyter" data-note="3,160 pre-registered runs" data-shape="globe">CropGlobe</a></li>
+      <li><a href="https://github.com/MuhammadTahirHussain-Official/Predictive-Typing-Engine-In-C-That-Predict-Your-Next-Word-" target="_blank" rel="noopener" data-kind="Language model" data-stack="Plain C · n-grams" data-note="Predicts your next word" data-shape="word">Veryx</a></li>
+      <li><a href="https://github.com/MuhammadTahirHussain-Official/Weather-Management-System-with-AI-assistant" target="_blank" rel="noopener" data-kind="Systems + LLM" data-stack="C++17 · LLM chatbot" data-note="Weather desk with an AI assistant" data-shape="storm">StormWatch</a></li>
+      <li><a href="https://github.com/MuhammadTahirHussain-Official/Professional-Airline-Management-System" target="_blank" rel="noopener" data-kind="Software design" data-stack="C++ · OOP" data-note="A full airline, simulated" data-shape="plane">Nexus Air</a></li>
+    </ul>
+    <div class="work__bottom">
+      <div class="flap" id="flap"></div>
+      <div class="work__info mono">
+        <span id="wIdx">01 / 05</span><b id="wKind"></b><span id="wStack"></span><span id="wNote"></span>
+        <a id="wLink" href="#" target="_blank" rel="noopener" data-tag="open">View code <svg class="arr"><use href="#arr"/></svg></a>
       </div>
     </div>
-    <ol class="repos" id="repos" aria-label="Repositories"></ol>
+    <i class="work__bar" id="wBar"></i>
   </div>
 </section>
 
-<!-- ── toolkit: a small neural network ── -->
-<section class="kit" id="toolkit" data-sec="stack.json">
-  <header class="work__head">
-    <p class="cm"><span class="pr">&gt;</span> net.forward(x) <span class="dm">// tap a node to fire it</span></p>
-    <h2 class="h2">Stack<span class="acc">.</span>json</h2>
-  </header>
+<!-- ── toolkit: a small neural network; tap a node and watch it fire forward ── -->
+<section class="kit" id="toolkit">
+  <p class="kit__label mono">Toolkit <span>— tap a node to fire it</span></p>
   <div class="net" id="netbox">
     <canvas aria-hidden="true"></canvas>
-    <div class="net__layer" data-name="languages" id="langLayer"><button class="node">Python</button><button class="node">C</button><button class="node">C++</button><button class="node">JavaScript</button><button class="node">PHP</button></div>
-    <div class="net__layer" data-name="data &amp; ml"><button class="node">PyTorch</button><button class="node">pandas</button><button class="node">Streamlit</button><button class="node">Plotly</button><button class="node">Pydantic</button></div>
-    <div class="net__layer" data-name="tooling"><button class="node">Jupyter</button><button class="node">Git</button><button class="node">CMake</button><button class="node">Hugging Face</button></div>
-    <div class="net__layer" data-name="output"><button class="node node--out">ship()</button></div>
+    <div class="net__layer" data-name="Languages"><button class="node">Python</button><button class="node">C</button><button class="node">C++</button><button class="node">JavaScript</button><button class="node">PHP</button></div>
+    <div class="net__layer" data-name="Data &amp; ML"><button class="node">PyTorch</button><button class="node">pandas</button><button class="node">Streamlit</button><button class="node">Plotly</button><button class="node">Pydantic</button></div>
+    <div class="net__layer" data-name="Tooling"><button class="node">Jupyter</button><button class="node">Git</button><button class="node">CMake</button><button class="node">Hugging Face</button></div>
+    <div class="net__layer" data-name="Output"><button class="node node--out">Shipped</button></div>
   </div>
 </section>
 
-<!-- ── contact: physics playground ── -->
-<section class="contact" id="contact" data-sec="contact.sh">
+<!-- ── contact: everything here has weight. Grab it, throw it. ── -->
+<section class="contact" id="contact">
   <div class="contact__head">
-    <p class="cm"><span class="pr">$</span> ./contact.sh <span class="dm"># grab · throw · tap empty space</span></p>
+    <p class="mono contact__hint">Grab · throw · tap the empty space</p>
     <h2 class="contact__title"><span data-vf>Let's</span> <span data-vf>talk</span></h2>
   </div>
   <div class="pile" id="pile">
-    <a class="chip chip--xl chip--a" href="mailto:mtahirhussainofficial@gmail.com" data-tag="write">Email <svg class="arr"><use href="#arr"/></svg></a>
-    <a class="chip chip--xl chip--b" href="https://github.com/MuhammadTahirHussain-Official" target="_blank" rel="noopener" data-tag="open">GitHub <svg class="arr"><use href="#arr"/></svg></a>
-    <a class="chip chip--xl chip--c" href="https://www.linkedin.com/in/muhammad-tahir-hussain-5ba414403/" target="_blank" rel="noopener" data-tag="open">LinkedIn <svg class="arr"><use href="#arr"/></svg></a>
-    <span class="chip chip--m chip--d">git commit</span>
-    <span class="chip chip--m chip--c">sudo</span>
-    <span class="chip chip--m chip--v">import torch</span>
-    <span class="chip chip--m chip--d">:wq</span>
-    <span class="chip chip--m chip--b">#include</span>
-    <span class="chip chip--m chip--c">npm run ship</span>
-    <span class="chip chip--m chip--a">AI</span>
-    <span class="chip chip--m chip--d">0x2A</span>
-    <span class="chip chip--round chip--a">{ }</span>
-    <span class="chip chip--round chip--b">&lt;/&gt;</span>
-    <span class="chip chip--round chip--v">λ</span>
-    <span class="chip chip--round chip--d">;</span>
+    <a class="chip chip--xl chip--blue" href="mailto:mtahirhussainofficial@gmail.com" data-tag="write">Email <svg class="arr"><use href="#arr"/></svg></a>
+    <a class="chip chip--xl chip--ink" href="https://github.com/MuhammadTahirHussain-Official" target="_blank" rel="noopener" data-tag="open">GitHub <svg class="arr"><use href="#arr"/></svg></a>
+    <a class="chip chip--xl chip--line" href="https://www.linkedin.com/in/muhammad-tahir-hussain-5ba414403/" target="_blank" rel="noopener" data-tag="open">LinkedIn <svg class="arr"><use href="#arr"/></svg></a>
+    <span class="chip chip--peri">AI</span>
+    <span class="chip chip--line">Research</span>
+    <span class="chip chip--ink">Code</span>
+    <span class="chip chip--blue">Solve</span>
+    <span class="chip chip--line">Python</span>
+    <span class="chip chip--peri">PyTorch</span>
+    <span class="chip chip--ink">C++</span>
+    <span class="chip chip--line">Data</span>
+    <span class="chip chip--round chip--blue">@</span>
+    <span class="chip chip--round chip--ink"><svg class="arr" style="margin:0"><use href="#arr"/></svg></span>
+    <span class="chip chip--round chip--peri">✳</span>
   </div>
-  <p class="contact__foot"><span>© <span id="year">2026</span> Muhammad Tahir Hussain</span><a href="#top" data-tag="top">cd ~ <svg class="arr arr--up"><use href="#arr"/></svg></a></p>
+  <footer class="mono"><span>© <span id="year">2026</span> Muhammad Tahir Hussain</span><a href="#top" data-tag="top">Top <svg class="arr arr--up"><use href="#arr"/></svg></a></footer>
 </section>
 
 </main>
-
-<!-- command palette -->
-<div class="k" id="k" hidden>
-  <div class="k__box" role="dialog" aria-modal="true" aria-label="Command palette">
-    <label class="k__in"><span>&gt;</span><input id="kIn" type="text" placeholder="Type a command or a repo name…" autocomplete="off" spellcheck="false"></label>
-    <ul class="k__list" id="kList"></ul>
-    <p class="k__hint"><kbd>↑</kbd><kbd>↓</kbd> move <kbd>↵</kbd> run <kbd>esc</kbd> close</p>
-  </div>
-</div>
 
 <script>/* never leave a visitor behind the loader if a script fails or is stale */
 (function(){function k(){var l=document.getElementById("loader");if(l&&!window.__started)l.remove();}window.addEventListener("error",k);setTimeout(k,7000);})();</script>
@@ -173,6 +144,6 @@
 <script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/vendor/lenis.min.js"></script>
 <script src="assets/vendor/matter.min.js"></script>
-<script src="js/main.js?v=8"></script>
+<script src="js/main.js?v=7"></script>
 </body>
 </html>
