@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tahir Hussain — AI Engineer</title>
+<meta name="description" content="Muhammad Tahir Hussain — AI engineer, research analyst, coder, problem solver.">
+<meta name="theme-color" content="#eceae3">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 7' shape-rendering='crispEdges'%3E%3Crect width='7' height='7' fill='%232436ff'/%3E%3Cpath fill='%23eceae3' d='M2 1h4v1H2zM5 2h1v3H5zM4 2h1v1H4zM3 3h1v1H3zM2 4h1v1H2zM1 5h1v1H1z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/portrait.webp">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- one hand-drawn pixel arrow, reused everywhere -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="arr" viewBox="0 0 7 7" shape-rendering="crispEdges">
+    <path d="M2 0h5v1H2zM6 1h1v4H6zM5 1h1v1H5zM4 2h1v1H4zM3 3h1v1H3zM2 4h1v1H2zM1 5h1v1H1zM0 6h1v1H0z"/>
+  </symbol>
+</svg>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <i></i><i></i><i></i><i></i><i></i>
+  <span class="mono" id="loaderNum">00</span>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true">
+  <svg viewBox="0 0 30 30"><path d="M2 2 27 11.5 16.5 15.5 21 27 15.5 29 11 17.5 4.5 24Z"/></svg>
+  <span class="mono" id="cursorTag"></span>
+</div>
+
+<header class="nav mono">
+  <a href="#top" data-tag="top">MTH</a>
+  <nav>
+    <a href="#work">Work</a>
+    <a href="#toolkit">Toolkit</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ── hero ── -->
+<section class="hero" id="hero">
+  <p class="hero__first mono">Muhammad</p>
+  <h1 class="hero__name hero__name--back" aria-label="Tahir Hussain">
+    <span data-vf>Tahir</span><span data-vf>Hussain</span>
+  </h1>
+  <figure class="hero__portrait" id="portrait">
+    <img id="portraitImg" src="assets/img/portrait.webp" width="1100" height="1430" alt="Muhammad Tahir Hussain">
+    <canvas id="ascii" aria-hidden="true"></canvas>
+  </figure>
+  <div class="hero__name hero__name--front" aria-hidden="true">
+    <span data-vf>Tahir</span><span data-vf>Hussain</span>
+  </div>
+  <ul class="hero__roles mono">
+    <li>AI Engineer</li><li>Research Analyst</li><li>Coder</li><li>Problem Solver</li>
+  </ul>
+  <a class="hero__down mono" href="#say" data-tag="scroll"><svg class="arr arr--down"><use href="#arr"/></svg></a>
+</section>
+
+<!-- ── statement, generated token by token ── -->
+<section class="say" id="say">
+  <p class="say__line" id="sayLine">I build systems that learn, and prove that they do.</p>
+</section>
+
+<!-- ── roles ── -->
+<section class="roles" id="roles">
+  <div class="roles__row" data-dir="-1"><i class="mono">01</i><h2 data-vf>AI Engineer</h2><span class="mono">models, not demos</span></div>
+  <div class="roles__row" data-dir="1"><i class="mono">02</i><h2 data-vf>Research Analyst</h2><span class="mono">evidence first</span></div>
+  <div class="roles__row" data-dir="-1"><i class="mono">03</i><h2 data-vf>Coder</h2><span class="mono">C · C++ · Python</span></div>
+  <div class="roles__row" data-dir="1"><i class="mono">04</i><h2 data-vf>Problem Solver</h2><span class="mono">find the invariant</span></div>
+</section>
+
+<!-- ── work: a wheel you turn by scrolling ── -->
+<section class="work" id="work">
+  <div class="work__stage">
+    <p class="work__label mono">Selected work</p>
+    <div class="wheel" id="wheel">
+      <ul id="wheelList">
+        <li><a href="https://github.com/MuhammadTahirHussain-Official/PAI-Sales-DataAnalysis" target="_blank" rel="noopener" data-kind="Data pipeline" data-stack="Python · pandas · Streamlit" data-note="3,000,888 rows → 85 features" data-shape="bars">Store Sales</a></li>
+        <li><a href="https://github.com/MuhammadTahirHussain-Official/cropglobe-transfer" target="_blank" rel="noopener" data-kind="ML research" data-stack="PyTorch · Jupyter" data-note="3,160 pre-registered runs" data-shape="globe">CropGlobe</a></li>
+        <li><a href="https://github.com/MuhammadTahirHussain-Official/Predictive-Typing-Engine-In-C-That-Predict-Your-Next-Word-" target="_blank" rel="noopener" data-kind="Language model" data-stack="Plain C · n-grams" data-note="Predicts your next word" data-shape="word">Veryx</a></li>
+        <li><a href="https://github.com/MuhammadTahirHussain-Official/Weather-Management-System-with-AI-assistant" target="_blank" rel="noopener" data-kind="Systems + LLM" data-stack="C++17 · LLM chatbot" data-note="Weather desk with an AI assistant" data-shape="radar">StormWatch</a></li>
+        <li><a href="https://github.com/MuhammadTahirHussain-Official/Professional-Airline-Management-System" target="_blank" rel="noopener" data-kind="Software design" data-stack="C++ · OOP" data-note="A full airline, simulated" data-shape="flight">Nexus Air</a></li>
+      </ul>
+    </div>
+    <canvas class="work__canvas" id="morph" aria-hidden="true"></canvas>
+    <div class="work__info mono">
+      <span id="wIdx">01 / 05</span>
+      <b id="wKind">Data pipeline</b>
+      <span id="wStack">Python · pandas · Streamlit</span>
+      <span id="wNote">3,000,888 rows → 85 features</span>
+      <a id="wLink" href="#" target="_blank" rel="noopener" data-tag="open">View code <svg class="arr"><use href="#arr"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ── toolkit orbit ── -->
+<section class="kit" id="toolkit">
+  <p class="kit__label mono">Toolkit</p>
+  <div class="orbit" id="orbit">
+    <div class="orbit__core">MTH</div>
+    <span>Python</span><span>C</span><span>C++</span><span>PyTorch</span><span>pandas</span><span>Streamlit</span><span>Plotly</span>
+    <span>Jupyter</span><span>Git</span><span>CMake</span><span>Hugging Face</span><span>JavaScript</span><span>PHP</span><span>Pydantic</span>
+  </div>
+</section>
+
+<!-- ── contact ── -->
+<section class="contact" id="contact">
+  <canvas id="flow" aria-hidden="true"></canvas>
+  <div class="contact__in">
+    <p class="mono">Let's talk</p>
+    <a class="contact__mail" id="mail" href="mailto:mtahirhussainofficial@gmail.com" data-tag="mail"><span>mtahirhussainofficial</span><span>@gmail.com</span></a>
+    <div class="contact__row mono">
+      <button id="copy" type="button" data-tag="copy">Copy address</button>
+      <a href="https://github.com/MuhammadTahirHussain-Official" target="_blank" rel="noopener" data-tag="open">GitHub <svg class="arr"><use href="#arr"/></svg></a>
+      <a href="https://www.linkedin.com/in/muhammad-tahir-hussain-5ba414403/" target="_blank" rel="noopener" data-tag="open">LinkedIn <svg class="arr"><use href="#arr"/></svg></a>
+    </div>
+    <footer class="mono"><span>© <span id="year">2026</span> Muhammad Tahir Hussain</span><a href="#top" data-tag="top">Top <svg class="arr arr--up"><use href="#arr"/></svg></a></footer>
+  </div>
+</section>
+
+</main>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/lenis.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
