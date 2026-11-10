@@ -101,6 +101,12 @@ html.has-cursor .cursor { opacity: 1; }
   .hero__down { width: 44px; height: 44px; bottom: 2svh; font-size: 18px; }
 }
 
+/* tablets and narrow windows: keep the portrait pinned to the right edge */
+@media (min-width: 521px) and (max-width: 1000px) {
+  .hero { --ph: min(80svh, 112vw); --pl: calc(100vw - var(--ph) * .36); --fs: min(13.2vw, 20svh); --top: 11svh; }
+  .hero__ring { width: calc(var(--ph) * .6); }
+}
+
 /* ── statement ── */
 .say { padding: clamp(110px, 22vh, 260px) var(--pad); }
 .say__line { font-size: clamp(2.6rem, 8.2vw, 9rem); font-weight: 600; line-height: .98; letter-spacing: -.04em; max-width: 13ch; }
