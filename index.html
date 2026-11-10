@@ -49,6 +49,7 @@
   <h1 class="hero__name hero__name--back" aria-label="Tahir Hussain">
     <span data-vf>Tahir</span><span data-vf>Hussain</span>
   </h1>
+  <div class="hero__ring" aria-hidden="true"></div>
   <figure class="hero__portrait" id="portrait">
     <img id="portraitImg" src="assets/img/portrait.webp" width="1100" height="1430" alt="Muhammad Tahir Hussain">
     <canvas id="ascii" aria-hidden="true"></canvas>
@@ -109,16 +110,16 @@
   </div>
 </section>
 
-<!-- ── contact ── -->
+<!-- ── contact: a field of arrows that all point at you ── -->
 <section class="contact" id="contact">
-  <canvas id="flow" aria-hidden="true"></canvas>
+  <canvas id="field" aria-hidden="true"></canvas>
   <div class="contact__in">
-    <p class="mono">Let's talk</p>
-    <a class="contact__mail" id="mail" href="mailto:mtahirhussainofficial@gmail.com" data-tag="mail"><span>mtahirhussainofficial</span><span>@gmail.com</span></a>
-    <div class="contact__row mono">
-      <button id="copy" type="button" data-tag="copy">Copy address</button>
-      <a href="https://github.com/MuhammadTahirHussain-Official" target="_blank" rel="noopener" data-tag="open">GitHub <svg class="arr"><use href="#arr"/></svg></a>
-      <a href="https://www.linkedin.com/in/muhammad-tahir-hussain-5ba414403/" target="_blank" rel="noopener" data-tag="open">LinkedIn <svg class="arr"><use href="#arr"/></svg></a>
+    <p class="mono contact__hint">Move · click · drag</p>
+    <h2 class="contact__title"><span data-vf>Say</span> <span data-vf>hello</span></h2>
+    <div class="contact__row">
+      <a class="pill" href="mailto:mtahirhussainofficial@gmail.com" data-tag="write">Email <svg class="arr"><use href="#arr"/></svg></a>
+      <a class="pill" href="https://github.com/MuhammadTahirHussain-Official" target="_blank" rel="noopener" data-tag="open">GitHub <svg class="arr"><use href="#arr"/></svg></a>
+      <a class="pill" href="https://www.linkedin.com/in/muhammad-tahir-hussain-5ba414403/" target="_blank" rel="noopener" data-tag="open">LinkedIn <svg class="arr"><use href="#arr"/></svg></a>
     </div>
     <footer class="mono"><span>© <span id="year">2026</span> Muhammad Tahir Hussain</span><a href="#top" data-tag="top">Top <svg class="arr arr--up"><use href="#arr"/></svg></a></footer>
   </div>

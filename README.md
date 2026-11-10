@@ -21,7 +21,8 @@ Open <http://localhost:4174>. (Opening `index.html` straight from disk works too
   - The statement is "generated" one token at a time as you scroll.
   - Projects sit on a wheel turned by scrolling; a particle cloud reshapes for each one.
   - Tools orbit a core and spin up when you scroll.
-  - The contact section is ink flowing through a vector field the cursor can stir.
+  - The contact section is a field of arrows that all turn to face the pointer; a click sends a shockwave through them.
+  - The portrait dissolves into ASCII along its lower edge, with a dashed halo turning behind it.
   - The cursor is an arrow that turns to face its direction of travel; link arrows are a custom pixel glyph.
 - Respects `prefers-reduced-motion` (falls back to a plain static page).
 

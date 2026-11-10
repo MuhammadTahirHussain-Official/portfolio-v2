@@ -8,20 +8,12 @@
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   const hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
   const animate = hasGsap && !reduce;
-  const EMAIL = 'mtahirhussainofficial@gmail.com';
   const mouse = { x: -9999, y: -9999, t: 0 };
   let lenis = null, scrollVel = 0;
 
   $('#year').textContent = new Date().getFullYear();
   $$('.work, .contact').forEach((s) => (s.dataset.theme = 'dark'));
   $$('#wheelList a').forEach((a) => (a.dataset.tag = 'open'));
-
-  // copy e-mail
-  $('#copy').addEventListener('click', async (e) => {
-    const b = e.currentTarget;
-    try { await navigator.clipboard.writeText(EMAIL); b.textContent = 'Copied'; } catch { b.textContent = EMAIL; }
-    b.classList.add('done'); setTimeout(() => { b.textContent = 'Copy address'; b.classList.remove('done'); }, 1800);
-  });
 
   if (!animate) {
     document.documentElement.classList.add('no-motion');
@@ -122,7 +114,7 @@
         lens.x += (lens.tx - lens.x) * .14; lens.y += (lens.ty - lens.y) * .14; lens.r += (lens.tr - lens.r) * .1;
       }
       cv.style.setProperty('--mx', lens.x.toFixed(1) + 'px'); cv.style.setProperty('--my', lens.y.toFixed(1) + 'px'); cv.style.setProperty('--mr', Math.max(0, lens.r).toFixed(1) + 'px');
-      if (lens.r > 2) for (let i = 0; i < 90; i++) draw(cells[(Math.random() * cells.length) | 0], true); // keep it alive
+      for (let i = 0, n = lens.r > 2 ? 90 : 24; i < n; i++) draw(cells[(Math.random() * cells.length) | 0], true); // keep it alive
     });
   })();
 
@@ -233,30 +225,40 @@
     });
   })();
 
-  /* ── 7. contact: ink flowing through a vector field ── */
-  (function flow() {
-    const cv = $('#flow'), ctx = cv.getContext('2d'); let w, h, dpr, ps = [], inView = false;
+  /* ── 7. contact: a field of arrows that all turn to face the pointer; a click sends a shockwave ── */
+  (function field() {
+    const sec = $('#contact'), cv = $('#field'), ctx = cv.getContext('2d');
+    let w, h, dpr, gap, arrows = [], inView = false; const waves = [], p = { x: 0, y: 0, tx: 0, ty: 0, last: -1e9 };
     function size() {
-      dpr = Math.min(devicePixelRatio || 1, 1.5); w = cv.clientWidth; h = cv.clientHeight; cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.fillStyle = '#2436ff'; ctx.fillRect(0, 0, w, h);
-      ps = Array.from({ length: w < 700 ? 260 : 620 }, () => ({ x: Math.random() * w, y: Math.random() * h, life: Math.random() * 200 }));
+      dpr = Math.min(devicePixelRatio || 1, 2); w = cv.clientWidth; h = cv.clientHeight; cv.width = w * dpr; cv.height = h * dpr;
+      gap = w < 700 ? 34 : 46; arrows = [];
+      const cols = Math.ceil(w / gap), rows = Math.ceil(h / gap), ox = (w - (cols - 1) * gap) / 2, oy = (h - (rows - 1) * gap) / 2;
+      for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) arrows.push({ x: ox + x * gap, y: oy + y * gap, a: -Math.PI / 4, k: 0 });
+      p.x = p.tx = w * .7; p.y = p.ty = h * .35;
     }
     size(); addEventListener('resize', size);
+    const at = (e) => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+    sec.addEventListener('pointermove', (e) => { [p.tx, p.ty] = at(e); p.last = performance.now(); }, { passive: true });
+    sec.addEventListener('pointerdown', (e) => { const [x, y] = at(e); waves.push({ x, y, r: 0 }); p.tx = x; p.ty = y; p.last = performance.now(); }, { passive: true });
     new IntersectionObserver(([e]) => { inView = e.isIntersecting; }).observe(cv);
     gsap.ticker.add((time) => {
       if (!inView) return;
-      const r = cv.getBoundingClientRect(), mx = mouse.x - r.left, my = mouse.y - r.top;
-      ctx.fillStyle = 'rgba(36,54,255,.07)'; ctx.fillRect(0, 0, w, h);
-      ctx.strokeStyle = 'rgba(236,234,227,.5)'; ctx.lineWidth = 1; ctx.beginPath();
-      for (const p of ps) {
-        let a = (Math.sin(p.x * .0042 + time * .12) + Math.cos(p.y * .0056 - time * .09)) * Math.PI;
-        const dx = p.x - mx, dy = p.y - my, d = Math.hypot(dx, dy);
-        if (d < 240) a += (1 - d / 240) * 2.6 + Math.atan2(dy, dx) * (1 - d / 240) * .4;   // the cursor stirs it
-        const nx = p.x + Math.cos(a) * 1.7, ny = p.y + Math.sin(a) * 1.7;
-        ctx.moveTo(p.x, p.y); ctx.lineTo(nx, ny); p.x = nx; p.y = ny;
-        if (--p.life < 0 || nx < 0 || nx > w || ny < 0 || ny > h) { p.x = Math.random() * w; p.y = Math.random() * h; p.life = 120 + Math.random() * 220; }
+      if (performance.now() - p.last > 2600) { p.tx = w * (.5 + .38 * Math.sin(time * .5)); p.ty = h * (.42 + .3 * Math.sin(time * .83 + 1)); } // wanders when left alone
+      p.x += (p.tx - p.x) * .12; p.y += (p.ty - p.y) * .12;
+      for (let i = waves.length - 1; i >= 0; i--) { waves[i].r += 15; if (waves[i].r > Math.hypot(w, h)) waves.splice(i, 1); }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h); ctx.lineCap = 'square';
+      const reach = Math.max(260, w * .26), L = gap * .3;
+      for (const a of arrows) {
+        const dx = p.x - a.x, dy = p.y - a.y, d = Math.hypot(dx, dy);
+        let da = Math.atan2(dy, dx) - a.a; da = Math.atan2(Math.sin(da), Math.cos(da)); a.a += da * .18;
+        let k = Math.pow(Math.max(0, 1 - d / reach), 1.6);
+        for (const wv of waves) { const q = Math.abs(Math.hypot(a.x - wv.x, a.y - wv.y) - wv.r); if (q < 70) { const f = 1 - q / 70; k = Math.max(k, f); a.a += f * .5; } }
+        a.k += (k - a.k) * .2;
+        const len = L * (.55 + a.k * 1.5), c = Math.cos(a.a), s = Math.sin(a.a), hx = a.x + c * len, hy = a.y + s * len, hd = len * .62;
+        ctx.strokeStyle = a.k > .5 ? '#eceae3' : a.k > .12 ? '#9aa5ff' : 'rgba(154,165,255,.3)'; ctx.lineWidth = 1.4 + a.k * 2;
+        ctx.beginPath(); ctx.moveTo(a.x - c * len, a.y - s * len); ctx.lineTo(hx, hy);
+        ctx.moveTo(hx - Math.cos(a.a - .7) * hd, hy - Math.sin(a.a - .7) * hd); ctx.lineTo(hx, hy); ctx.lineTo(hx - Math.cos(a.a + .7) * hd, hy - Math.sin(a.a + .7) * hd); ctx.stroke();
       }
-      ctx.stroke();
     });
   })();
 

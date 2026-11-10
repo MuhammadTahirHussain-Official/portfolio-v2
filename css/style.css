@@ -68,18 +68,26 @@ html.has-cursor .cursor { opacity: 1; }
 .hero__name { position: absolute; inset: 0; margin: 0; font-weight: 800; text-transform: uppercase; font-size: clamp(4rem, 17.6vw, 21rem); line-height: .8; letter-spacing: -.035em; pointer-events: none; white-space: nowrap; }
 .hero__name > span { position: absolute; left: var(--pad); display: block; }
 .hero__name > span:first-child { top: 14svh; }
-.hero__name > span:last-child { bottom: 5svh; }
+.hero__name > span:last-child { bottom: 9svh; }
 .hero__name--back { color: var(--blue); z-index: 1; }
 .hero__name--front { z-index: 3; color: transparent; -webkit-text-stroke: 1.5px var(--paper);
   /* outline only where the letters pass in front of the body */
-  -webkit-mask: url(../assets/img/portrait.webp) no-repeat calc(var(--pl) - var(--ph) * .3846) 100% / auto var(--ph);
-  mask: url(../assets/img/portrait.webp) no-repeat calc(var(--pl) - var(--ph) * .3846) 100% / auto var(--ph); }
+  -webkit-mask-image: url(../assets/img/portrait.webp), linear-gradient(#000 82%, transparent 93%);
+  -webkit-mask-repeat: no-repeat; -webkit-mask-position: calc(var(--pl) - var(--ph) * .3846) 100%, 0 0; -webkit-mask-size: auto var(--ph), 100% 100%; -webkit-mask-composite: source-in;
+  mask-image: url(../assets/img/portrait.webp), linear-gradient(#000 82%, transparent 93%);
+  mask-repeat: no-repeat; mask-position: calc(var(--pl) - var(--ph) * .3846) 100%, 0 0; mask-size: auto var(--ph), 100% 100%; mask-composite: intersect; }
 .hero__name--front > span:first-child { visibility: hidden; }
 .hero__portrait { position: absolute; z-index: 2; bottom: 0; left: var(--pl); height: var(--ph); aspect-ratio: 1100 / 1430; transform: translateX(-50%); }
-.hero__portrait img { width: 100%; height: 100%; }
+.hero__portrait img { width: 100%; height: 100%;
+  -webkit-mask-image: linear-gradient(#000 80%, transparent 95%); mask-image: linear-gradient(#000 80%, transparent 95%); }
+/* dashed halo turning slowly behind the head */
+.hero__ring { position: absolute; z-index: 1; left: var(--pl); bottom: calc(var(--ph) * .72); width: calc(var(--ph) * .66); aspect-ratio: 1; translate: -50% 50%; border: 1.5px dashed rgba(12, 16, 36, .32); border-radius: 50%; animation: ring 50s linear infinite; pointer-events: none; }
+.hero__ring::before, .hero__ring::after { content: ""; position: absolute; width: 12px; height: 12px; background: var(--blue); left: 50%; top: -7px; margin-left: -6px; }
+.hero__ring::after { top: auto; bottom: -7px; background: var(--ink); border-radius: 50%; }
+@keyframes ring { to { rotate: 360deg; } }
 .hero__portrait canvas { position: absolute; inset: 0; width: 100%; height: 100%; --mx: 50%; --my: 30%; --mr: 0px;
-  -webkit-mask-image: radial-gradient(circle var(--mr) at var(--mx) var(--my), #000 97%, transparent 100%);
-  mask-image: radial-gradient(circle var(--mr) at var(--mx) var(--my), #000 97%, transparent 100%); }
+  -webkit-mask-image: radial-gradient(circle var(--mr) at var(--mx) var(--my), #000 97%, transparent 100%), linear-gradient(transparent 76%, #000 90%, #000 93%, transparent 100%);
+  mask-image: radial-gradient(circle var(--mr) at var(--mx) var(--my), #000 97%, transparent 100%), linear-gradient(transparent 76%, #000 90%, #000 93%, transparent 100%); }
 .hero__roles { position: absolute; z-index: 4; left: var(--pad); top: 50%; display: grid; gap: 6px; color: var(--ink); }
 .hero__roles li { display: flex; align-items: center; gap: 10px; }
 .hero__roles li::before { content: ""; width: 6px; height: 6px; background: var(--blue); }
@@ -89,9 +97,10 @@ html.has-cursor .cursor { opacity: 1; }
 @keyframes nudge { 50% { transform: rotate(135deg) translate(3px, -3px); } }
 @media (max-width: 760px) {
   .hero { --ph: min(74svh, 190vw); --pl: 50vw; }
+  .hero__ring { width: calc(var(--ph) * .5); }
   .hero__name { font-size: 21.4vw; }
   .hero__name > span:first-child { top: 11svh; }
-  .hero__name > span:last-child { bottom: 9svh; }
+  .hero__name > span:last-child { bottom: 12svh; }
   .hero__first { top: calc(11svh - 20px); }
   .hero__roles { top: calc(11svh + 19vw); grid-template-columns: auto auto; gap: 4px 14px; font-size: 10px; }
   .hero__down { width: 44px; height: 44px; bottom: 2svh; font-size: 18px; }
@@ -148,17 +157,18 @@ html.has-cursor .cursor { opacity: 1; }
 .no-motion .orbit { height: auto; min-height: 0; display: flex; flex-wrap: wrap; gap: 10px; padding: 60px var(--pad) 0; } .no-motion .orbit > span { position: static; } .no-motion .orbit__core { display: none; }
 
 /* ── contact ── */
-.contact { position: relative; background: var(--blue); color: var(--paper); min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
+.contact { position: relative; background: var(--ink); color: var(--paper); min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; touch-action: pan-y; }
 .contact canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.contact__in { position: relative; width: 100%; padding: 0 var(--pad); }
-.contact__in > p { opacity: .8; margin-bottom: 14px; }
-.contact__mail { display: block; font-size: clamp(1.5rem, 5.55vw, 7rem); font-weight: 700; letter-spacing: -.045em; line-height: 1; white-space: nowrap; }
-.contact__mail span { display: inline-block; background: linear-gradient(currentColor, currentColor) 0 100% / 0 .06em no-repeat; transition: background-size .6s var(--ease); padding-bottom: .06em; }
-.contact__mail:hover span { background-size: 100% .06em; }
-.contact__row { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: clamp(24px, 4vw, 48px); align-items: center; font-size: 13px; }
-.contact__row button { border: 1px solid var(--paper); padding: 10px 16px; text-transform: uppercase; letter-spacing: .04em; font-family: var(--mono); font-size: 12px; transition: background .25s, color .25s; }
-.contact__row button:hover, .contact__row button.done { background: var(--paper); color: var(--blue); }
-.contact footer { display: flex; justify-content: space-between; gap: 16px; margin-top: clamp(50px, 9vw, 120px); padding: 18px 0 22px; border-top: 1px solid rgba(236, 234, 227, .35); font-size: 11px; }
-@media (max-width: 760px) { .contact__mail { font-size: 7.4vw; white-space: normal; } .contact__mail span { display: block; width: max-content; } }
+.contact__in { position: relative; width: 100%; padding: 0 var(--pad); pointer-events: none; }
+.contact__in a { pointer-events: auto; }
+.contact__hint { color: var(--peri); margin-bottom: 10px; }
+.contact__title { font-size: clamp(4rem, 19vw, 22rem); font-weight: 800; line-height: .8; letter-spacing: -.04em; text-transform: uppercase; white-space: nowrap; }
+.contact__title > span:last-child { color: var(--peri); }
+.contact__row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: clamp(26px, 4vw, 54px); }
+.pill { display: inline-flex; align-items: center; border: 1.5px solid var(--paper); border-radius: 99px; padding: .5em 1.1em; font-size: clamp(1rem, 1.9vw, 1.7rem); font-weight: 600; letter-spacing: -.02em; background: var(--ink); transition: background .3s, color .3s, border-color .3s, transform .4s var(--ease); }
+.pill:hover { background: var(--peri); border-color: var(--peri); color: var(--ink); transform: translateY(-4px) rotate(-2deg); }
+.pill:first-child { background: var(--blue); border-color: var(--blue); }
+.contact footer { display: flex; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 7vw, 100px); padding: 18px 0 22px; border-top: 1px solid rgba(236, 234, 227, .25); font-size: 11px; color: rgba(236, 234, 227, .7); }
+@media (max-width: 760px) { .contact__title { font-size: 25vw; white-space: normal; } .contact__title > span { display: block; } }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
