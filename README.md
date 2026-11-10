@@ -19,8 +19,8 @@ Open <http://localhost:4174>. (Opening `index.html` straight from disk works too
   - The cursor is a lens over the portrait that shows the photo as live ASCII.
   - The name passes behind the portrait and continues as an outline across it.
   - The statement is "generated" one token at a time as you scroll.
-  - Projects sit on a wheel turned by scrolling; a particle cloud reshapes for each one.
-  - Tools orbit a core and spin up when you scroll.
+  - Projects: a rotating 3D point cloud reshapes for each one (bar chart, globe, the word "next", a storm funnel, a paper plane) while the title flips on a split-flap board.
+  - Toolkit: a small neural network. Tap a node and the signal fires forward layer by layer; it also fires on its own.
   - The contact section is a physics playground: every chip has weight, can be grabbed and thrown, and a tap on empty space sends a shockwave (Matter.js).
   - The portrait dissolves into ASCII along its lower edge, with a dashed halo turning behind it.
   - The cursor is an arrow that turns to face its direction of travel; link arrows are a custom pixel glyph.

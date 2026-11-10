@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/portrait.webp">
-<link rel="stylesheet" href="css/style.css?v=5">
+<link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body>
 
@@ -75,37 +75,39 @@
   <div class="roles__row" data-dir="1"><i class="mono">04</i><h2 data-vf>Problem Solver</h2><span class="mono">find the invariant</span></div>
 </section>
 
-<!-- ── work: a wheel you turn by scrolling ── -->
+<!-- ── work: a 3D point cloud that reshapes per project, named on a split-flap board ── -->
 <section class="work" id="work">
   <div class="work__stage">
+    <canvas id="cloud" aria-hidden="true"></canvas>
     <p class="work__label mono">Selected work</p>
-    <div class="wheel" id="wheel">
-      <ul id="wheelList">
-        <li><a href="https://github.com/MuhammadTahirHussain-Official/PAI-Sales-DataAnalysis" target="_blank" rel="noopener" data-kind="Data pipeline" data-stack="Python · pandas · Streamlit" data-note="3,000,888 rows → 85 features" data-shape="bars">Store Sales</a></li>
-        <li><a href="https://github.com/MuhammadTahirHussain-Official/cropglobe-transfer" target="_blank" rel="noopener" data-kind="ML research" data-stack="PyTorch · Jupyter" data-note="3,160 pre-registered runs" data-shape="globe">CropGlobe</a></li>
-        <li><a href="https://github.com/MuhammadTahirHussain-Official/Predictive-Typing-Engine-In-C-That-Predict-Your-Next-Word-" target="_blank" rel="noopener" data-kind="Language model" data-stack="Plain C · n-grams" data-note="Predicts your next word" data-shape="word">Veryx</a></li>
-        <li><a href="https://github.com/MuhammadTahirHussain-Official/Weather-Management-System-with-AI-assistant" target="_blank" rel="noopener" data-kind="Systems + LLM" data-stack="C++17 · LLM chatbot" data-note="Weather desk with an AI assistant" data-shape="radar">StormWatch</a></li>
-        <li><a href="https://github.com/MuhammadTahirHussain-Official/Professional-Airline-Management-System" target="_blank" rel="noopener" data-kind="Software design" data-stack="C++ · OOP" data-note="A full airline, simulated" data-shape="flight">Nexus Air</a></li>
-      </ul>
+    <ol class="work__ticks mono" id="ticks" aria-hidden="true"><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li></ol>
+    <ul class="work__list" id="wheelList">
+      <li><a href="https://github.com/MuhammadTahirHussain-Official/PAI-Sales-DataAnalysis" target="_blank" rel="noopener" data-kind="Data pipeline" data-stack="Python · pandas · Streamlit" data-note="3,000,888 rows → 85 features" data-shape="bars">Store Sales</a></li>
+      <li><a href="https://github.com/MuhammadTahirHussain-Official/cropglobe-transfer" target="_blank" rel="noopener" data-kind="ML research" data-stack="PyTorch · Jupyter" data-note="3,160 pre-registered runs" data-shape="globe">CropGlobe</a></li>
+      <li><a href="https://github.com/MuhammadTahirHussain-Official/Predictive-Typing-Engine-In-C-That-Predict-Your-Next-Word-" target="_blank" rel="noopener" data-kind="Language model" data-stack="Plain C · n-grams" data-note="Predicts your next word" data-shape="word">Veryx</a></li>
+      <li><a href="https://github.com/MuhammadTahirHussain-Official/Weather-Management-System-with-AI-assistant" target="_blank" rel="noopener" data-kind="Systems + LLM" data-stack="C++17 · LLM chatbot" data-note="Weather desk with an AI assistant" data-shape="storm">StormWatch</a></li>
+      <li><a href="https://github.com/MuhammadTahirHussain-Official/Professional-Airline-Management-System" target="_blank" rel="noopener" data-kind="Software design" data-stack="C++ · OOP" data-note="A full airline, simulated" data-shape="plane">Nexus Air</a></li>
+    </ul>
+    <div class="work__bottom">
+      <div class="flap" id="flap"></div>
+      <div class="work__info mono">
+        <span id="wIdx">01 / 05</span><b id="wKind"></b><span id="wStack"></span><span id="wNote"></span>
+        <a id="wLink" href="#" target="_blank" rel="noopener" data-tag="open">View code <svg class="arr"><use href="#arr"/></svg></a>
+      </div>
     </div>
-    <canvas class="work__canvas" id="morph" aria-hidden="true"></canvas>
-    <div class="work__info mono">
-      <span id="wIdx">01 / 05</span>
-      <b id="wKind">Data pipeline</b>
-      <span id="wStack">Python · pandas · Streamlit</span>
-      <span id="wNote">3,000,888 rows → 85 features</span>
-      <a id="wLink" href="#" target="_blank" rel="noopener" data-tag="open">View code <svg class="arr"><use href="#arr"/></svg></a>
-    </div>
+    <i class="work__bar" id="wBar"></i>
   </div>
 </section>
 
-<!-- ── toolkit orbit ── -->
+<!-- ── toolkit: a small neural network; tap a node and watch it fire forward ── -->
 <section class="kit" id="toolkit">
-  <p class="kit__label mono">Toolkit</p>
-  <div class="orbit" id="orbit">
-    <div class="orbit__core">MTH</div>
-    <span>Python</span><span>C</span><span>C++</span><span>PyTorch</span><span>pandas</span><span>Streamlit</span><span>Plotly</span>
-    <span>Jupyter</span><span>Git</span><span>CMake</span><span>Hugging Face</span><span>JavaScript</span><span>PHP</span><span>Pydantic</span>
+  <p class="kit__label mono">Toolkit <span>— tap a node to fire it</span></p>
+  <div class="net" id="netbox">
+    <canvas aria-hidden="true"></canvas>
+    <div class="net__layer" data-name="Languages"><button class="node">Python</button><button class="node">C</button><button class="node">C++</button><button class="node">JavaScript</button><button class="node">PHP</button></div>
+    <div class="net__layer" data-name="Data &amp; ML"><button class="node">PyTorch</button><button class="node">pandas</button><button class="node">Streamlit</button><button class="node">Plotly</button><button class="node">Pydantic</button></div>
+    <div class="net__layer" data-name="Tooling"><button class="node">Jupyter</button><button class="node">Git</button><button class="node">CMake</button><button class="node">Hugging Face</button></div>
+    <div class="net__layer" data-name="Output"><button class="node node--out">Shipped</button></div>
   </div>
 </section>
 
@@ -142,6 +144,6 @@
 <script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/vendor/lenis.min.js"></script>
 <script src="assets/vendor/matter.min.js"></script>
-<script src="js/main.js?v=5"></script>
+<script src="js/main.js?v=6"></script>
 </body>
 </html>
