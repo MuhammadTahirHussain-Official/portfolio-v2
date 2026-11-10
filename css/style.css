@@ -63,12 +63,12 @@ html.has-cursor .cursor { opacity: 1; }
 .nav.is-light { color: var(--paper); }
 
 /* ── hero ── */
-.hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; --ph: 90svh; --pl: 63vw; }
-.hero__first { position: absolute; left: var(--pad); top: calc(11svh - 6px); color: var(--mute); z-index: 1; }
-.hero__name { position: absolute; inset: 0; margin: 0; font-weight: 800; text-transform: uppercase; font-size: clamp(4rem, 17.6vw, 21rem); line-height: .8; letter-spacing: -.035em; pointer-events: none; white-space: nowrap; }
-.hero__name > span { position: absolute; left: var(--pad); display: block; }
-.hero__name > span:first-child { top: 14svh; }
-.hero__name > span:last-child { bottom: 9svh; }
+.hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden;
+  --ph: 92svh;                                   /* portrait height */
+  --pl: calc(100vw - var(--ph) * .37);           /* portrait centre: pinned to the right edge */
+  --fs: min(12vw, 21svh); --top: 15svh; }
+.hero__name { position: absolute; inset: 0; margin: 0; padding: var(--top) 0 0 var(--pad); font-weight: 800; font-size: var(--fs); line-height: .86; letter-spacing: -.045em; pointer-events: none; white-space: nowrap; }
+.hero__name > span { display: block; }
 .hero__name--back { color: var(--blue); z-index: 1; }
 .hero__name--front { z-index: 3; color: transparent; -webkit-text-stroke: 1.5px var(--paper);
   /* outline only where the letters pass in front of the body */
@@ -76,7 +76,6 @@ html.has-cursor .cursor { opacity: 1; }
   -webkit-mask-repeat: no-repeat; -webkit-mask-position: calc(var(--pl) - var(--ph) * .3846) 100%, 0 0; -webkit-mask-size: auto var(--ph), 100% 100%; -webkit-mask-composite: source-in;
   mask-image: url(../assets/img/portrait.webp), linear-gradient(#000 82%, transparent 93%);
   mask-repeat: no-repeat; mask-position: calc(var(--pl) - var(--ph) * .3846) 100%, 0 0; mask-size: auto var(--ph), 100% 100%; mask-composite: intersect; }
-.hero__name--front > span:first-child { visibility: hidden; }
 .hero__portrait { position: absolute; z-index: 2; bottom: 0; left: var(--pl); height: var(--ph); aspect-ratio: 1100 / 1430; transform: translateX(-50%); }
 .hero__portrait img { width: 100%; height: 100%;
   -webkit-mask-image: linear-gradient(#000 80%, transparent 95%); mask-image: linear-gradient(#000 80%, transparent 95%); }
@@ -88,21 +87,17 @@ html.has-cursor .cursor { opacity: 1; }
 .hero__portrait canvas { position: absolute; inset: 0; width: 100%; height: 100%; --mx: 50%; --my: 30%; --mr: 0px;
   -webkit-mask-image: radial-gradient(circle var(--mr) at var(--mx) var(--my), #000 97%, transparent 100%), linear-gradient(transparent 76%, #000 90%, #000 93%, transparent 100%);
   mask-image: radial-gradient(circle var(--mr) at var(--mx) var(--my), #000 97%, transparent 100%), linear-gradient(transparent 76%, #000 90%, #000 93%, transparent 100%); }
-.hero__roles { position: absolute; z-index: 4; left: var(--pad); top: 50%; display: grid; gap: 6px; color: var(--ink); }
+.hero__roles { position: absolute; z-index: 4; left: var(--pad); top: calc(var(--top) + var(--fs) * 2.58 + 30px); display: grid; gap: 6px; color: var(--ink); }
 .hero__roles li { display: flex; align-items: center; gap: 10px; }
 .hero__roles li::before { content: ""; width: 6px; height: 6px; background: var(--blue); }
-.hero__down { position: absolute; z-index: 4; right: var(--pad); bottom: 5svh; width: 54px; height: 54px; display: grid; place-items: center; background: var(--ink); color: var(--paper); font-size: 22px; transition: background .3s; }
+.hero__down { position: absolute; z-index: 4; left: var(--pad); bottom: 4svh; width: 54px; height: 54px; display: grid; place-items: center; background: var(--ink); color: var(--paper); font-size: 22px; transition: background .3s; }
 .hero__down:hover { background: var(--blue); }
 .hero__down .arr { animation: nudge 1.6s steps(4) infinite; }
 @keyframes nudge { 50% { transform: rotate(135deg) translate(3px, -3px); } }
 @media (max-width: 760px) {
-  .hero { --ph: min(74svh, 190vw); --pl: 50vw; }
+  .hero { --ph: min(64svh, 165vw); --pl: 60vw; --fs: 16.4vw; --top: 10svh; }
   .hero__ring { width: calc(var(--ph) * .5); }
-  .hero__name { font-size: 21.4vw; }
-  .hero__name > span:first-child { top: 11svh; }
-  .hero__name > span:last-child { bottom: 12svh; }
-  .hero__first { top: calc(11svh - 20px); }
-  .hero__roles { top: calc(11svh + 19vw); grid-template-columns: auto auto; gap: 4px 14px; font-size: 10px; }
+  .hero__roles { top: calc(var(--top) + var(--fs) * 2.58 + 12px); grid-template-columns: auto auto; gap: 4px 14px; font-size: 10px; }
   .hero__down { width: 44px; height: 44px; bottom: 2svh; font-size: 18px; }
 }
 

@@ -307,7 +307,7 @@
       .to(heroLetters, { intro: 0, duration: 1.4, stagger: .04, ease: 'power2.out' }, '<.1')
       .from('.hero__portrait', { yPercent: 8, opacity: 0, duration: 1.1, ease: 'power3.out' }, '<')
       .to(lens, { r: 0, duration: 2, ease: 'power3.inOut', onComplete: () => { lens.intro = false; } }, '<.2')
-      .from('.hero__first, .hero__roles li, .hero__down, .nav a', { opacity: 0, y: 14, duration: .7, stagger: .05, ease: 'power3.out' }, '-=1.4')
+      .from('.hero__roles li, .hero__down, .nav a', { opacity: 0, y: 14, duration: .7, stagger: .05, ease: 'power3.out' }, '-=1.4')
       .add(() => { loader.remove(); ScrollTrigger.refresh(); });
   }
   const c = { v: 0 };
