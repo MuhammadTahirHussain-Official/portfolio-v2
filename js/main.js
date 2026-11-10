@@ -298,7 +298,7 @@
   if (lenis) lenis.stop(); scrollTo(0, 0);
   let done = false;
   function start() {
-    if (done) return; done = true; num.textContent = '100';
+    if (done) return; done = true; window.__started = true; num.textContent = '100';
     if (lenis) lenis.start();
     gsap.timeline({ defaults: { ease: 'power4.inOut' } })
       .to(num, { opacity: 0, duration: .3 })
