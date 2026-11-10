@@ -128,7 +128,7 @@ html.has-cursor .cursor { opacity: 1; }
 .work__info a { color: var(--peri); margin-top: 12px; font-size: 13px; justify-self: start; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
 @media (max-width: 860px) {
   .work__stage { grid-template-columns: 1fr; grid-template-rows: 34svh 1fr auto; }
-  .wheel { grid-row: 1; --fs: 15vw; padding-top: 70px; }
+  .wheel { grid-row: 1; --fs: 12.4vw; padding-top: 70px; }
   .work__canvas { width: min(64vw, 30svh); height: min(64vw, 30svh); margin: 0; justify-self: start; align-self: center; }
   .work__info { justify-self: start; width: 100%; padding-bottom: 26px; }
 }
@@ -159,6 +159,6 @@ html.has-cursor .cursor { opacity: 1; }
 .contact__row button { border: 1px solid var(--paper); padding: 10px 16px; text-transform: uppercase; letter-spacing: .04em; font-family: var(--mono); font-size: 12px; transition: background .25s, color .25s; }
 .contact__row button:hover, .contact__row button.done { background: var(--paper); color: var(--blue); }
 .contact footer { display: flex; justify-content: space-between; gap: 16px; margin-top: clamp(50px, 9vw, 120px); padding: 18px 0 22px; border-top: 1px solid rgba(236, 234, 227, .35); font-size: 11px; }
-@media (max-width: 760px) { .contact__mail { font-size: 8.3vw; white-space: normal; } .contact__mail span { display: block; width: max-content; } }
+@media (max-width: 760px) { .contact__mail { font-size: 7.4vw; white-space: normal; } .contact__mail span { display: block; width: max-content; } }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
