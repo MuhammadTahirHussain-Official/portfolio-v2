@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/portrait.webp">
-<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 
@@ -109,19 +109,29 @@
   </div>
 </section>
 
-<!-- ── contact: a field of arrows that all point at you ── -->
+<!-- ── contact: everything here has weight. Grab it, throw it. ── -->
 <section class="contact" id="contact">
-  <canvas id="field" aria-hidden="true"></canvas>
-  <div class="contact__in">
-    <p class="mono contact__hint">Move · click · drag</p>
-    <h2 class="contact__title"><span data-vf>Say</span> <span data-vf>hello</span></h2>
-    <div class="contact__row">
-      <a class="pill" href="mailto:mtahirhussainofficial@gmail.com" data-tag="write">Email <svg class="arr"><use href="#arr"/></svg></a>
-      <a class="pill" href="https://github.com/MuhammadTahirHussain-Official" target="_blank" rel="noopener" data-tag="open">GitHub <svg class="arr"><use href="#arr"/></svg></a>
-      <a class="pill" href="https://www.linkedin.com/in/muhammad-tahir-hussain-5ba414403/" target="_blank" rel="noopener" data-tag="open">LinkedIn <svg class="arr"><use href="#arr"/></svg></a>
-    </div>
-    <footer class="mono"><span>© <span id="year">2026</span> Muhammad Tahir Hussain</span><a href="#top" data-tag="top">Top <svg class="arr arr--up"><use href="#arr"/></svg></a></footer>
+  <div class="contact__head">
+    <p class="mono contact__hint">Grab · throw · tap the empty space</p>
+    <h2 class="contact__title"><span data-vf>Let's</span> <span data-vf>talk</span></h2>
   </div>
+  <div class="pile" id="pile">
+    <a class="chip chip--xl chip--blue" href="mailto:mtahirhussainofficial@gmail.com" data-tag="write">Email <svg class="arr"><use href="#arr"/></svg></a>
+    <a class="chip chip--xl chip--ink" href="https://github.com/MuhammadTahirHussain-Official" target="_blank" rel="noopener" data-tag="open">GitHub <svg class="arr"><use href="#arr"/></svg></a>
+    <a class="chip chip--xl chip--line" href="https://www.linkedin.com/in/muhammad-tahir-hussain-5ba414403/" target="_blank" rel="noopener" data-tag="open">LinkedIn <svg class="arr"><use href="#arr"/></svg></a>
+    <span class="chip chip--peri">AI</span>
+    <span class="chip chip--line">Research</span>
+    <span class="chip chip--ink">Code</span>
+    <span class="chip chip--blue">Solve</span>
+    <span class="chip chip--line">Python</span>
+    <span class="chip chip--peri">PyTorch</span>
+    <span class="chip chip--ink">C++</span>
+    <span class="chip chip--line">Data</span>
+    <span class="chip chip--round chip--blue">@</span>
+    <span class="chip chip--round chip--ink"><svg class="arr" style="margin:0"><use href="#arr"/></svg></span>
+    <span class="chip chip--round chip--peri">✳</span>
+  </div>
+  <footer class="mono"><span>© <span id="year">2026</span> Muhammad Tahir Hussain</span><a href="#top" data-tag="top">Top <svg class="arr arr--up"><use href="#arr"/></svg></a></footer>
 </section>
 
 </main>
@@ -131,6 +141,7 @@
 <script src="assets/vendor/gsap.min.js"></script>
 <script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/vendor/lenis.min.js"></script>
-<script src="js/main.js?v=4"></script>
+<script src="assets/vendor/matter.min.js"></script>
+<script src="js/main.js?v=5"></script>
 </body>
 </html>

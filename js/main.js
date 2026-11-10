@@ -12,11 +12,11 @@
   let lenis = null, scrollVel = 0;
 
   $('#year').textContent = new Date().getFullYear();
-  $$('.work, .contact').forEach((s) => (s.dataset.theme = 'dark'));
+  $$('.work').forEach((s) => (s.dataset.theme = 'dark'));
   $$('#wheelList a').forEach((a) => (a.dataset.tag = 'open'));
 
   if (!animate) {
-    document.documentElement.classList.add('no-motion');
+    document.documentElement.classList.add('no-motion'); $('#pile').classList.add('is-static');
     $('#loader').remove();
     return;
   }
@@ -225,41 +225,71 @@
     });
   })();
 
-  /* ── 7. contact: a field of arrows that all turn to face the pointer; a click sends a shockwave ── */
-  (function field() {
-    const sec = $('#contact'), cv = $('#field'), ctx = cv.getContext('2d');
-    let w, h, dpr, gap, arrows = [], inView = false; const waves = [], p = { x: 0, y: 0, tx: 0, ty: 0, last: -1e9 };
-    function size() {
-      dpr = Math.min(devicePixelRatio || 1, 2); w = cv.clientWidth; h = cv.clientHeight; cv.width = w * dpr; cv.height = h * dpr;
-      gap = w < 700 ? 34 : 46; arrows = [];
-      const cols = Math.ceil(w / gap), rows = Math.ceil(h / gap), ox = (w - (cols - 1) * gap) / 2, oy = (h - (rows - 1) * gap) / 2;
-      for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) arrows.push({ x: ox + x * gap, y: oy + y * gap, a: -Math.PI / 4, k: 0 });
-      p.x = p.tx = w * .7; p.y = p.ty = h * .35;
+  /* ── 7. contact: a physics playground. Every chip has weight: grab it, throw it, tap empty space to blast. ── */
+  (function pile() {
+    const box = $('#pile'), chips = $$('.chip', box);
+    if (typeof Matter === 'undefined') { box.classList.add('is-static'); return; }
+    const { Engine, Bodies, Body, Composite, Constraint } = Matter;
+    const engine = Engine.create({ gravity: { x: 0, y: 1.15 } }), world = engine.world;
+    let W = 0, H = 0, walls = [], items = [], live = false, inView = false;
+    chips.forEach((el) => { if (!el.dataset.tag) el.dataset.tag = 'grab'; el.draggable = false; });
+
+    function buildWalls() {
+      W = box.clientWidth; H = box.clientHeight; Composite.remove(world, walls);
+      const o = { isStatic: true, friction: .5 };
+      walls = [Bodies.rectangle(W / 2, H + 100, W + 800, 200, o), Bodies.rectangle(-100, H / 2 - 1000, 200, H + 3000, o), Bodies.rectangle(W + 100, H / 2 - 1000, 200, H + 3000, o), Bodies.rectangle(W / 2, -2100, W + 800, 200, o)];
+      Composite.add(world, walls);
     }
-    size(); addEventListener('resize', size);
-    const at = (e) => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
-    sec.addEventListener('pointermove', (e) => { [p.tx, p.ty] = at(e); p.last = performance.now(); }, { passive: true });
-    sec.addEventListener('pointerdown', (e) => { const [x, y] = at(e); waves.push({ x, y, r: 0 }); p.tx = x; p.ty = y; p.last = performance.now(); }, { passive: true });
-    new IntersectionObserver(([e]) => { inView = e.isIntersecting; }).observe(cv);
-    gsap.ticker.add((time) => {
-      if (!inView) return;
-      if (performance.now() - p.last > 2600) { p.tx = w * (.5 + .38 * Math.sin(time * .5)); p.ty = h * (.42 + .3 * Math.sin(time * .83 + 1)); } // wanders when left alone
-      p.x += (p.tx - p.x) * .12; p.y += (p.ty - p.y) * .12;
-      for (let i = waves.length - 1; i >= 0; i--) { waves[i].r += 15; if (waves[i].r > Math.hypot(w, h)) waves.splice(i, 1); }
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, w, h); ctx.lineCap = 'square';
-      const reach = Math.max(260, w * .26), L = gap * .3;
-      for (const a of arrows) {
-        const dx = p.x - a.x, dy = p.y - a.y, d = Math.hypot(dx, dy);
-        let da = Math.atan2(dy, dx) - a.a; da = Math.atan2(Math.sin(da), Math.cos(da)); a.a += da * .18;
-        let k = Math.pow(Math.max(0, 1 - d / reach), 1.6);
-        for (const wv of waves) { const q = Math.abs(Math.hypot(a.x - wv.x, a.y - wv.y) - wv.r); if (q < 70) { const f = 1 - q / 70; k = Math.max(k, f); a.a += f * .5; } }
-        a.k += (k - a.k) * .2;
-        const len = L * (.55 + a.k * 1.5), c = Math.cos(a.a), s = Math.sin(a.a), hx = a.x + c * len, hy = a.y + s * len, hd = len * .62;
-        ctx.strokeStyle = a.k > .5 ? '#eceae3' : a.k > .12 ? '#9aa5ff' : 'rgba(154,165,255,.3)'; ctx.lineWidth = 1.4 + a.k * 2;
-        ctx.beginPath(); ctx.moveTo(a.x - c * len, a.y - s * len); ctx.lineTo(hx, hy);
-        ctx.moveTo(hx - Math.cos(a.a - .7) * hd, hy - Math.sin(a.a - .7) * hd); ctx.lineTo(hx, hy); ctx.lineTo(hx - Math.cos(a.a + .7) * hd, hy - Math.sin(a.a + .7) * hd); ctx.stroke();
-      }
+    function spawn() {
+      if (live) return; live = true; buildWalls();
+      items = chips.map((el, i) => {
+        const w = el.offsetWidth, h = el.offsetHeight, round = el.classList.contains('chip--round');
+        const x = W * (.12 + .76 * Math.random()), y = -80 - i * (H * .16);
+        const opt = { restitution: .38, friction: .35, frictionAir: .012, density: .0016, angle: (Math.random() - .5) * 1.2 };
+        const body = round ? Bodies.circle(x, y, w / 2, opt) : Bodies.rectangle(x, y, w, h, { ...opt, chamfer: { radius: h / 2 - 1 } });
+        el.classList.add('is-live'); return { el, body, w, h };
+      });
+      Composite.add(world, items.map((i) => i.body));
+    }
+    let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (!live) return; buildWalls(); items.forEach(({ body }) => { if (body.position.x > W - 20 || body.position.y > H) Body.setPosition(body, { x: Math.min(body.position.x, W - 60), y: Math.min(body.position.y, H - 80) }); }); }, 200); });
+
+    // drag & throw
+    const at = (e) => { const r = box.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+    chips.forEach((el) => {
+      let grip = null, moved = 0, last = null;
+      el.addEventListener('pointerdown', (e) => {
+        const it = items.find((i) => i.el === el); if (!it) return;
+        const p = at(e); moved = 0; last = p; try { el.setPointerCapture(e.pointerId); } catch {} el.classList.add('is-held');
+        grip = Constraint.create({ pointA: p, bodyB: it.body, pointB: { x: p.x - it.body.position.x, y: p.y - it.body.position.y }, stiffness: .16, damping: .12, length: 0 });
+        Composite.add(world, grip);
+      });
+      el.addEventListener('pointermove', (e) => { if (!grip) return; const p = at(e); moved += Math.hypot(p.x - last.x, p.y - last.y); last = p; grip.pointA = p; });
+      const drop = () => { if (!grip) return; Composite.remove(world, grip); grip = null; el.classList.remove('is-held'); };
+      el.addEventListener('pointerup', drop); el.addEventListener('pointercancel', drop);
+      el.addEventListener('click', (e) => { if (moved > 8) e.preventDefault(); });   // a throw is not a click
+      el.addEventListener('dragstart', (e) => e.preventDefault());
     });
+    // tap empty space: shockwave
+    box.addEventListener('pointerdown', (e) => {
+      if (e.target !== box || !live) return; const p = at(e);
+      const ring = document.createElement('i'); ring.className = 'blast'; ring.style.left = p.x + 'px'; ring.style.top = p.y + 'px'; box.appendChild(ring); setTimeout(() => ring.remove(), 720);
+      const reach = Math.max(420, W * .5);
+      items.forEach(({ body }) => {
+        const dx = body.position.x - p.x, dy = body.position.y - p.y, d = Math.hypot(dx, dy) || 1; if (d > reach) return;
+        const f = (1 - d / reach) * .09 * body.mass; Body.applyForce(body, body.position, { x: (dx / d) * f, y: (dy / d) * f - f * .35 });
+        Body.setAngularVelocity(body, body.angularVelocity + (Math.random() - .5) * .3);
+      });
+    });
+
+    new IntersectionObserver(([e]) => { inView = e.isIntersecting; if (e.intersectionRatio > .35) spawn(); }, { threshold: [0, .35] }).observe(box);
+    function render() {
+      for (const { el, body, w, h } of items) {
+        if (body.position.y > H + 400 || body.position.x < -300 || body.position.x > W + 300) { Body.setPosition(body, { x: W / 2, y: -100 }); Body.setVelocity(body, { x: 0, y: 0 }); } // never lose one
+        el.style.transform = `translate3d(${(body.position.x - w / 2).toFixed(1)}px,${(body.position.y - h / 2).toFixed(1)}px,0) rotate(${body.angle.toFixed(3)}rad)`;
+      }
+    }
+    gsap.ticker.add((time, dt) => { if (!inView || !live) return; Engine.update(engine, clamp(dt || 16.7, 8, 33)); render(); });
+    window.__pile = { step(n = 1) { spawn(); for (let i = 0; i < n; i++) Engine.update(engine, 16.7); render(); } }; // console helper
   })();
 
   /* ── 8. cursor: an arrow that turns to face its direction of travel ── */
@@ -272,7 +302,7 @@
       if (dx * dx + dy * dy > 16) { target = Math.atan2(dy, dx) * 180 / Math.PI + 135; lastMove = performance.now(); px = e.clientX; py = e.clientY; }
       cur.style.transform = `translate3d(${e.clientX - 2}px,${e.clientY - 2}px,0)`;
       const t = e.target, tg = t.closest && t.closest('[data-tag]');
-      cur.classList.toggle('is-link', !!(t.closest && t.closest('a, button, .orbit > span')));
+      cur.classList.toggle('is-link', !!(t.closest && t.closest('a, button, .orbit > span, .chip')));
       cur.classList.toggle('has-tag', !!tg); if (tg) tag.textContent = tg.dataset.tag;
       cur.classList.toggle('on-dark', !!(t.closest && t.closest('[data-theme="dark"]')));
     }, { passive: true });
